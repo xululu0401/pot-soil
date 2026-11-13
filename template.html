@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>换盆用土清单 · 几个盆、什么配方，每样买几袋</title>
+<meta name="description" content="按每种花盆的上口、底、高与个数算出要装多少土、垫多少排水层，按配方份数拆成每种材料多少升，扣掉家里已有的，算出每样买几袋、剩多少、花多少钱。">
+<style>
+  :root{
+    --bg:#f2efe8; --card:#fffdf9; --ink:#2d2620; --ink2:#5a4f44; --mut:#8a7f72; --line:#e2d9cc;
+    --soil:#6b4a33; --soil2:#efe4d8; --clay:#b4683f; --clay2:#f7e7dc; --leaf:#3f6b3a; --leaf2:#e5f0e1;
+    --amber:#8a6512; --amber2:#fbf3dc; --rust:#a3401f; --rust2:#fbe9e2;
+    --sh:0 1px 2px rgba(45,38,32,.06),0 6px 18px rgba(45,38,32,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:22px 16px 72px}
+  h1{font-size:30px;line-height:1.25;margin:0 0 6px}
+  .sub{color:var(--ink2);margin:0;font-size:15.5px}
+  .muted{color:var(--mut);font-size:13.5px}
+  .hide{display:none !important}
+  button{font:inherit;cursor:pointer}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 13px;font-size:13.5px;color:var(--ink2)}
+  .chip[aria-pressed="true"]{background:var(--soil);border-color:var(--soil);color:#fff}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--sh);padding:16px;margin:14px 0;min-width:0}
+  .card h2{font-size:17px;margin:0 0 10px}
+  .card h2 small{font-weight:400;color:var(--mut);font-size:13px;margin-left:6px}
+
+  /* 结论条 */
+  .head{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:12px}
+  .stat{background:var(--soil2);border-radius:12px;padding:12px 14px;min-width:0}
+  .stat b{display:block;font:800 30px/1.2 ui-monospace,Menlo,monospace;color:var(--soil);overflow-wrap:anywhere}
+  .stat span{font-size:13.5px;color:var(--ink2)}
+  .stat.money{background:var(--clay2)} .stat.money b{color:var(--clay)}
+  .lead{margin:10px 0 0;font-size:15.5px;overflow-wrap:anywhere}
+
+  /* 表格（宽屏表格、窄屏卡片） */
+  .rows{display:grid;gap:10px}
+  .row{display:grid;gap:8px;align-items:end;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;min-width:0}
+  .potrow{grid-template-columns:minmax(0,1.4fr) minmax(0,.9fr) repeat(6,minmax(0,.7fr)) 92px auto}
+  .matrow{grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,.8fr)) auto}
+  .f{min-width:0}
+  .f label{display:block;font-size:12.5px;color:var(--ink2);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .f input,.f select{width:100%;font:15px/1.4 ui-monospace,Menlo,monospace;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);min-width:0}
+  .f select{font-family:inherit}
+  .f.off{visibility:hidden}
+  .f.bad input,.f.bad select{border-color:#c4502c;background:#fff6f2}
+  .rowmsg{grid-column:1/-1;font-size:12.5px;color:var(--rust);overflow-wrap:anywhere}
+  .rowmsg:empty{display:none}
+  .rowout{grid-column:1/-1;font-size:13.5px;color:var(--ink2);overflow-wrap:anywhere}
+  .rowout b{color:var(--soil);font-family:ui-monospace,Menlo,monospace}
+  .sect svg{display:block;width:92px;height:70px}
+  @media (max-width:900px){
+    .potrow{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .potrow .f.nm{grid-column:1/-1}
+    .potrow .sect{grid-row:span 2}
+    .potrow .f.off{display:none}
+    .matrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .matrow .f.nm{grid-column:1/-1}
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(170px,100%),1fr));gap:10px}
+  .btn{background:var(--soil);border:1px solid var(--soil);color:#fff;border-radius:9px;padding:8px 13px;font-size:14px}
+  .btn.ghost{background:#fff;color:var(--soil)}
+  .btn.mini{padding:6px 10px;font-size:13px}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+
+  /* 配方条 */
+  .recipe{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:4px 0 10px;border:1px solid var(--line)}
+  .recipe i{display:block;height:100%}
+
+  /* 购物清单 */
+  .shop{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .shop li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:4px 12px;align-items:center;border:1px dashed var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+  .shop li.done{opacity:.55}
+  .shop li.done .what{text-decoration:line-through}
+  .shop input[type=checkbox]{width:20px;height:20px;accent-color:var(--leaf)}
+  .shop .what{font-weight:600;overflow-wrap:anywhere;min-width:0}
+  .shop .qty{font:700 20px ui-monospace,Menlo,monospace;color:var(--soil);white-space:nowrap}
+  .shop .why{grid-column:2/-1;font-size:13.5px;color:var(--ink2);overflow-wrap:anywhere}
+  .shop li.zero .qty{color:var(--leaf)}
+  .box{border-radius:10px;padding:10px 12px;font-size:14.5px;margin:10px 0;overflow-wrap:anywhere}
+  .box.bad{background:var(--rust2);color:#7a2f12;border:1px solid #f0cdbb}
+  .box.warn{background:var(--amber2);color:#6a4c0c;border:1px solid #efdfb2}
+  .box ul{margin:4px 0 0;padding-left:20px}
+  .acts{display:grid;gap:8px}
+  .act{text-align:left;background:var(--leaf2);border:1px solid #c7dcc0;color:#2c4a28;border-radius:10px;padding:9px 12px;font-size:14px;overflow-wrap:anywhere}
+  .act:hover{border-color:var(--leaf)}
+  .foot{margin-top:18px;font-size:13.5px;color:var(--mut)}
+  .foot li{margin:3px 0}
+  #saveTag{font-size:12.5px;color:var(--mut);font-weight:400}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>换盆用土清单</h1>
+    <p class="sub">把要换的盆一行行填进来（上口、底、高、几个），再写配方的份数和每袋多大 —— 下面直接出一张购物清单：每样买几袋、买完剩多少、一共多少钱。</p>
+    <div class="chips" id="presets"></div>
+    <p class="muted" id="presetNote"></p>
+  </header>
+
+  <section class="card" id="summary">
+    <h2>结果 <span id="saveTag"></span></h2>
+    <div id="errBox" class="box bad hide"></div>
+    <div id="okHead">
+      <div class="head">
+        <div class="stat"><b id="sNeed"></b><span id="sNeedTx"></span></div>
+        <div class="stat"><b id="sBags"></b><span id="sBagsTx"></span></div>
+        <div class="stat money"><b id="sCost"></b><span>一共要花</span></div>
+      </div>
+      <p class="lead" id="lead"></p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>① 要换哪些盆 <small>尺寸量盆的内壁；方盆填长和宽</small></h2>
+    <div class="rows" id="potRows"></div>
+    <div class="bar"><button type="button" class="btn ghost mini" id="addPot">+ 再加一种盆</button></div>
+    <div class="grid" style="margin-top:12px">
+      <div class="f" id="f_drain"><label for="drain">底下垫排水层（cm，0 = 不垫）</label><input id="drain" inputmode="decimal"></div>
+      <div class="f" id="f_head"><label for="head">口沿留空（cm）</label><input id="head" inputmode="decimal"></div>
+      <div class="f" id="f_spare"><label for="spare">多备（%）</label><input id="spare" inputmode="decimal"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>② 配方怎么配 <small>按体积「份」；袋子按松散/泡开后的升数填</small></h2>
+    <div class="recipe" id="recipeBar" aria-hidden="true"></div>
+    <div class="rows" id="matRows"></div>
+    <div class="bar"><button type="button" class="btn ghost mini" id="addMat">+ 再加一种材料</button></div>
+    <div id="drainCfg">
+      <h2 style="margin-top:14px;font-size:15px">排水层用什么</h2>
+      <div class="grid">
+        <div class="f" id="f_dname"><label for="dname">名称</label><input id="dname"></div>
+        <div class="f" id="f_dbag"><label for="dbag">每袋（L）</label><input id="dbag" inputmode="decimal"></div>
+        <div class="f" id="f_dprice"><label for="dprice">每袋价格（元）</label><input id="dprice" inputmode="decimal"></div>
+        <div class="f" id="f_dhave"><label for="dhave">家里已有（L）</label><input id="dhave" inputmode="decimal"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="shopCard">
+    <h2>③ 购物清单 <small>买到一样勾一样，勾选也会存在本机</small></h2>
+    <ul class="shop" id="shop"></ul>
+    <div id="warnBox" class="box warn hide"></div>
+    <div id="actsBlock"><h2 style="margin-top:14px;font-size:15px">点一下就改到上面的输入</h2><div class="acts" id="acts"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="bar" style="margin:0">
+      <button type="button" class="btn mini" id="dlCsv">下载 CSV</button>
+      <button type="button" class="btn mini" id="dlMd">下载 MD</button>
+      <button type="button" class="btn mini" id="dlPng">下载清单 PNG</button>
+      <button type="button" class="btn mini ghost" id="dlJson">备份 JSON</button>
+      <button type="button" class="btn mini ghost" id="impJson">从 JSON 恢复</button>
+      <button type="button" class="btn mini ghost" id="reset">恢复默认</button>
+      <input type="file" id="impFile" accept="application/json,.json" class="hide">
+    </div>
+    <ul class="foot">
+      <li>默认场景、配方、袋子规格与价格都是虚构示例；本页不推荐配方，不判断透气保水。</li>
+      <li>盆按直壁锥台计算（上下口按高度均匀过渡）；鼓肚盆、圆底盆只能近似。</li>
+      <li>不算混合后的体积收缩、浇水后的沉降、压缩砖泡开的倍数，这些靠「多备」兜着。</li>
+      <li>输入只存在这台设备的浏览器里（localStorage），不上传。</li>
+    </ul>
+  </section>
+</div>
+<script src="./core.js"></script>
+<script src="./ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
+  <rect width="1200" height="1200" fill="#f2efe8"/>
+  <rect x="60" y="60" width="1080" height="1080" fill="#fffdf9" stroke="#e2d9cc"/>
+  <rect x="60" y="60" width="1080" height="12" fill="#6b4a33"/>
+  <text x="120" y="200" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="80" font-weight="700" fill="#2d2620">换盆用土清单</text>
+  <text x="120" y="262" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="32" fill="#8a7f72">9 个盆、泥炭 5 : 珍珠岩 2 : 蛭石 1 : 椰糠 2</text>
+  <polygon points="860,170 1060,170 1035,330 885,330" fill="#6b4a33"/>
+  <polygon points="881,305 1039,305 1035,330 885,330" fill="#c98a5e"/>
+  <polyline points="855,160 885,330 1035,330 1065,160" fill="none" stroke="#2d2620" stroke-width="5"/>
+  <text x="120" y="420" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="34" fill="#5a4f44">要配的土</text>
+  <text x="640" y="420" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="34" fill="#5a4f44">一共要花</text>
+  <text x="120" y="530" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="110" font-weight="700" fill="#6b4a33">75.4 L</text>
+  <text x="640" y="530" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="110" font-weight="700" fill="#b4683f">131 元</text>
+  <line x1="120" y1="590" x2="1080" y2="590" stroke="#e2d9cc" stroke-dasharray="10 10"/>
+  <rect x="120" y="632" width="34" height="34" fill="none" stroke="#8a7f72" stroke-width="3"/>
+  <text x="180" y="662" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="38" font-weight="700" fill="#2d2620">泥炭</text>
+  <text x="520" y="662" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="28" fill="#5a4f44">要 37.7 L · 剩 12.3 L</text>
+  <text x="1080" y="664" text-anchor="end" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="44" font-weight="700" fill="#6b4a33">1 袋</text>
+  <rect x="120" y="714" width="34" height="34" fill="none" stroke="#8a7f72" stroke-width="3"/>
+  <text x="180" y="744" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="38" font-weight="700" fill="#2d2620">珍珠岩</text>
+  <text x="520" y="744" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="28" fill="#5a4f44">要 15.1 L · 剩 9.92 L</text>
+  <text x="1080" y="746" text-anchor="end" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="44" font-weight="700" fill="#6b4a33">2 袋</text>
+  <rect x="120" y="796" width="34" height="34" fill="none" stroke="#8a7f72" stroke-width="3"/>
+  <text x="180" y="826" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="38" font-weight="700" fill="#2d2620">蛭石</text>
+  <text x="520" y="826" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="28" fill="#5a4f44">要 7.54 L · 剩 2.46 L</text>
+  <text x="1080" y="828" text-anchor="end" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="44" font-weight="700" fill="#6b4a33">1 袋</text>
+  <rect x="120" y="878" width="34" height="34" fill="none" stroke="#8a7f72" stroke-width="3"/>
+  <text x="180" y="908" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="38" font-weight="700" fill="#2d2620">椰糠</text>
+  <text x="520" y="908" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="28" fill="#5a4f44">要 15.1 L · 剩 4.92 L</text>
+  <text x="1080" y="910" text-anchor="end" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="44" font-weight="700" fill="#6b4a33">2 袋</text>
+  <rect x="120" y="960" width="34" height="34" fill="none" stroke="#8a7f72" stroke-width="3"/>
+  <text x="180" y="990" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="38" font-weight="700" fill="#2d2620">陶粒（排水层）</text>
+  <text x="520" y="990" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="28" fill="#5a4f44">要 13.8 L</text>
+  <text x="1080" y="992" text-anchor="end" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="44" font-weight="700" fill="#6b4a33">2 袋</text>
+  <text x="120" y="1090" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif" font-size="24" fill="#8a7f72">默认场景为虚构示例 · 盆按直壁锥台计算 · 不推荐配方</text>
+</svg>
